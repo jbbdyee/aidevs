@@ -12,7 +12,7 @@ while True:
     print("2. 마법사")
     print("3. 궁수")
 
-    job_number = input("직업 번호를 입력하세요: ")
+    job_number = input("직업번호를 입력하세요: ")
 
     match job_number:
         case "1":
