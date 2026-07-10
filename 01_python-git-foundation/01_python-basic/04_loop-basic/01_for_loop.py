@@ -6,11 +6,13 @@
 
 # 여러 학생 이름을 리스트에 저장합니다.
 students = ["지민", "서연", "민준"]
+print(type(students))
+print(len(students))
 
 # for student in students는 students 리스트에서 값을 하나씩 꺼내
 # student 변수에 넣고, 들여쓰기 된 코드를 반복 실행합니다.
 for student in students:
-    print(student, "님 출석했습니다.")
+    print(student, "님 출석했습니다.") 
 
 # total은 합계를 저장하기 위한 변수입니다.
 # 처음에는 아무것도 더하지 않았으므로 0에서 시작합니다.
