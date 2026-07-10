@@ -38,4 +38,3 @@ while True:
         continue
 
     print("-" * 30)
-    #  헤헤
