@@ -8,7 +8,7 @@ students = [
 ]
 
 #  1. 학생들의 평균점수를 출력한다.
-#  calcuㅣate_average(students:list)->float:
+#  calculate_average(students:list)->float:
 
 def calculate_average(students:list)->float:
     total: int = 0
