@@ -7,7 +7,7 @@
 """
 
 
-def calculate_average(scores):
+def calculate_average(scores:list[int])->float:
     total = 0
 
     for score in scores:
@@ -16,7 +16,7 @@ def calculate_average(scores):
     return total / len(scores)
 
 
-def print_user(user):
+def print_user(user:dict[str,object])->None:
     print("이름:", user["name"])
     print("역할:", user["role"])
     print("활성 상태:", user["active"])
@@ -35,14 +35,14 @@ user = {
 print_user(user)
 
 
-def filter_passed_students(students):
+def filter_passed_students(students:list)->tuple:
     passed_students = []
 
     for student in students:
         if student["score"] >= 60:
             passed_students.append(student)
 
-    return passed_students
+    return tuple(passed_students)
 
 
 students = [
@@ -51,5 +51,7 @@ students = [
     {"name": "Jun", "score": 58},
 ]
 
+#  학생들의 점수를 입력했을 때, 점수가 60정 이상인 경우에만 출력
 passed = filter_passed_students(students)
 print("통과 학생:", passed)
+

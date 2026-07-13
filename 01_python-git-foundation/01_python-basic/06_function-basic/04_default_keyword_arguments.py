@@ -9,7 +9,7 @@
 """
 
 
-def greet(name, language="ko"):
+def greet(name: str, language: str="ko")-> str:
     if language == "ko":
         return f"{name}님, 안녕하세요."
 
@@ -26,8 +26,13 @@ print(greet("Jean", "en"))
 print(greet(name="Mina", language="ko"))
 print(greet(language="en", name="Mina"))
 
+#  기본값 매개변수와 키워드 인자를 함께 사용하면 함수 호출이 편리해집니다.
+#  함수명 : create_user
+#  매개변수 : name, role, active
+#  기본값 : role = "member", active = True
+#  사용자 정보를 넣으면  dict 형태로 반환됩니다.
 
-def create_user(name, role="member", active=True):
+def create_user(name :str, role :str="member", active :bool=True):
     return {
         "name": name,
         "role": role,

@@ -8,11 +8,11 @@
 """
 
 
-def greet(name):
+def greet(name: str):
     print(name, "님, 안녕하세요.")
 
 
-def print_score(name, score):
+def print_score(name :str, score: float):
     print(name, "님의 점수는", score, "점입니다.")
 
 
@@ -21,7 +21,7 @@ greet("Jean")
 greet("Mina")
 
 # print_score 함수는 값을 두 개 받습니다.
-print_score("Jean", 95)
+print_score("Jean", 95.0)
 print_score("Mina", 82)
 
 # 매개변수를 사용하면 같은 함수로 여러 값을 처리할 수 있습니다.
