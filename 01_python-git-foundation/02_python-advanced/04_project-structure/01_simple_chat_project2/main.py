@@ -17,6 +17,7 @@ r"""01_simple_chat_project의 실행 시작점입니다.
 """
 
 from app.services import create_chat_message
+from app.models import RequestChatMessage, ResponseChatMessage
 
 
 def main() -> None:
@@ -27,9 +28,13 @@ def main() -> None:
         print(f"질문: {question}")
         print("LLM이 처리 중입니다. .............")
         try:
-            message = create_chat_message(question)
+            request_msg = RequestChatMessage(
+                prompt = question,
+                user = "id01",
+            )
+            reponse_msg = create_chat_message(request_msg)
             print()
-            print(f"답변:  ({message.msg}  {message.model}) {message.answer}")
+            print(f"답변:  ({reponse_msg.msg}  {reponse_msg.model}) {reponse_msg.answer}")
             print()
         except ConnectionRefusedError:
             print("네트워크가 불안합니다. 다시 시도하세요")
