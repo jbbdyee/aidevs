@@ -1,4 +1,4 @@
-"""Path Parameter 예제.
+ """Path Parameter 예제.
 
 이 파일은 Path Parameter 개념을 나누어 읽고 실행해 보기 위한 학습용 파일입니다.
 
