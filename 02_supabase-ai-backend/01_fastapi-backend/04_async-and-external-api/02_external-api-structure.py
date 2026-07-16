@@ -57,6 +57,7 @@ async def get_external_post(post_id: int):
         ) from error
 
     # response.json()은 외부 API 응답 JSON을 Python dict로 바꿉니다.
+    #  ---.json()은 
     external_data = response.json()
 
     return {
