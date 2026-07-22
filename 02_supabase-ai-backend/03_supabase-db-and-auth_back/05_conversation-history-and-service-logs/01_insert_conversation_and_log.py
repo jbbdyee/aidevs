@@ -27,7 +27,7 @@
          model text,
          status text not null default 'success',
          error_message text,
-         created_at timestamptz not null default now()
+         created_at timestamp not null default now()
        );
 
 실행:
