@@ -2,7 +2,7 @@
 
 이 챕터에서는 FastAPI endpoint에서 Supabase 테이블을 호출하는 API 서버를 만듭니다.
 
-앞 챕터에서 Python 파일을 직접 실행해 `learning_notes` CRUD를 확인했다면, 이번에는 같은 기능을 HTTP API로 제공합니다. 즉, 브라우저나 프론트엔드가 FastAPI에 요청을 보내고, FastAPI가 Supabase에 데이터를 저장하거나 조회하는 구조입니다.
+앞 챕터에서 Python 파일을 직접 실행해 `learning_notes main` CRUD를 확인했다면, 이번에는 같은 기능을 HTTP API로 제공합니다. 즉, 브라우저나 프론트엔드가 FastAPI에 요청을 보내고, FastAPI가 Supabase에 데이터를 저장하거나 조회하는 구조입니다.
 
 ## 학습 목표
 
@@ -20,7 +20,7 @@
 -> FastAPI endpoint
 -> Pydantic 요청 검증
 -> Supabase client
--> learning_notes 테이블
+-> learning_notes main 테이블
 -> JSON 응답 반환
 ```
 
@@ -38,12 +38,12 @@ dir .env
 
 VS Code에서 `.env`를 열고 `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`가 실제 값인지 확인합니다. key 전체 값은 터미널이나 문서에 출력하지 않습니다.
 
-### 2. `learning_notes` 테이블 확인
+### 2. `learning_notes main` 테이블 확인
 
 Supabase SQL Editor에서 아래 SQL이 실행되어 있어야 합니다.
 
 ```sql
-create table if not exists learning_notes (
+create table if not exists "learning_notes main" (
   id uuid primary key default gen_random_uuid(),
   title text not null,
   content text not null,
@@ -106,7 +106,7 @@ http://127.0.0.1:8000/docs
 ```json
 {
   "title": "FastAPI Supabase integration",
-  "content": "FastAPI endpoint에서 Supabase learning_notes 테이블에 데이터를 저장합니다."
+  "content": "FastAPI endpoint에서 Supabase learning_notes main 테이블에 데이터를 저장합니다."
 }
 ```
 
@@ -167,9 +167,9 @@ dir .env
 
 `.env` 파일을 열어 `SUPABASE_URL`과 `SUPABASE_SERVICE_ROLE_KEY`가 실제 값인지 확인합니다.
 
-### relation learning_notes does not exist
+### relation learning_notes main does not exist
 
-Supabase SQL Editor에서 `learning_notes` 테이블 생성 SQL을 먼저 실행해야 합니다.
+Supabase SQL Editor에서 `learning_notes main` 테이블 생성 SQL을 먼저 실행해야 합니다.
 
 ### 404 Note not found
 
@@ -179,7 +179,7 @@ Supabase SQL Editor에서 `learning_notes` 테이블 생성 SQL을 먼저 실행
 
 ```text
 [ ] .env에 Supabase 값이 설정되어 있습니다.
-[ ] learning_notes 테이블이 생성되어 있습니다.
+[ ] learning_notes main 테이블이 생성되어 있습니다.
 [ ] uvicorn으로 FastAPI 서버를 실행했습니다.
 [ ] Swagger UI에서 GET /health를 확인했습니다.
 [ ] POST /notes로 메모를 생성했습니다.

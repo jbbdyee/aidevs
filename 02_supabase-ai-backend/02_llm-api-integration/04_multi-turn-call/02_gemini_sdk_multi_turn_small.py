@@ -36,11 +36,11 @@ client = genai.Client(api_key=api_key)
 contents = [
     {
         "role": "user",
-        "parts": [{"text": "FastAPI에서 Pydantic을 왜 사용하나요?"}],
+        "parts": [{"text": "이제부터 너의 이름은 지니야"}],
     },
     {
         "role": "model",
-        "parts": [{"text": "요청 데이터를 검증하고 응답 모델을 정리하는 데 사용합니다."}],
+        "parts": [{"text": "제 이름은 지금부터 지니 입니다."}],
     },
     {
         "role": "user",
