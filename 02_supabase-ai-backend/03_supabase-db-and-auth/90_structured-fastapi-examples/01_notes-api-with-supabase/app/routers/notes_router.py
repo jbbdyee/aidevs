@@ -52,3 +52,5 @@ def delete_note(note_id: str) -> dict[str, str]:
     if not deleted:
         raise HTTPException(status_code=404, detail="Note not found")
     return {"message": "deleted"}
+
+# apiresponse 쓰면 더 간단함

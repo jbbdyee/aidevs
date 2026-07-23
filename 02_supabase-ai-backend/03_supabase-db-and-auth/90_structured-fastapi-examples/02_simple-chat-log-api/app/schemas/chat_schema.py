@@ -32,3 +32,5 @@ class ChatLogPublic(BaseModel):
     status: str
     error_message: str | None = None
     created_at: str | None = None
+    
+#  None = None 은 없을 수도 있다는 뜻(디폴트값임)

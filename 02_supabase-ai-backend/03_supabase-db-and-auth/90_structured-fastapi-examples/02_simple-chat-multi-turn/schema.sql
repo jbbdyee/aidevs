@@ -8,5 +8,8 @@ create table if not exists ex90_multi_turn_chat_logs (
   created_at timestamptz not null default now()
 );
 
-create index if not exists ex90_multi_turn_chat_logs_conversation_created_idx
-on ex90_multi_turn_chat_logs (conversation_id, created_at);
+-- create index if not exists ex90_multi_turn_chat_logs_conversation_created_idx
+-- on ex90_multi_turn_chat_logs (conversation_id, created_at);
+
+-- conversation_id 는 사용자의 채팅창 값? 이게 있어야 넌 지니야 -> 웅 난 지니야 할수있음
+-- 아이디로 하면 전체내용을 다 보내야하니까

@@ -1,10 +1,13 @@
 """Supabase의 ex90_notes 테이블을 읽고 쓰는 코드입니다."""
 
 from __future__ import annotations
-
+# supabase 정의해놓고 사용하면 쉽고 보기 좋음
 from app.core.config import supabase
-from app.schemas.note_schema import NoteCreate, NotePublic, NoteUpdate
-
+from app.schemas.note_schema import (
+    NoteCreate, 
+    NotePublic, 
+    NoteUpdate
+)
 
 TABLE_NAME = "ex90_notes"
 
