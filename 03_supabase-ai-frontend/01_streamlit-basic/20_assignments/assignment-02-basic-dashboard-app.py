@@ -30,7 +30,14 @@ with left_col:  # 파일, 화면 영역, 로딩 상태처럼 시작과 종료가
 with right_col:  # 파일, 화면 영역, 로딩 상태처럼 시작과 종료가 있는 작업 범위를 만듭니다.
     st.header("결과 영역")  # 이 줄은 예제의 핵심 동작을 단계별로 보여주기 위한 코드입니다.
     if answer:  # 조건식이 True일 때만 아래 들여쓰기 블록을 실행합니다.
-        st.write("")  # 문자열, 숫자, 객체를 Streamlit 화면에 출력합니다.
+        st.write(f"{answer}는 정답입니다")  # 문자열, 숫자, 객체를 Streamlit 화면에 출력합니다.
     else:  # 위 조건들이 모두 False일 때 실행할 대체 흐름입니다.
-        st.write("왼쪽에서 이름을 입력하세요.")  # 문자열, 숫자, 객체를 Streamlit 화면에 출력합니다.
+        st.write("왼쪽에 정답을 입력하세요.")  # 문자열, 숫자, 객체를 Streamlit 화면에 출력합니다.
+
+st.divider()
+
+st.header("메뉴")
+
+tab_summary, tab_detail, tab_memo = st.tabs(["요약", "상세", "메모"])  # 탭 이름을 순서대로 지정합니다.
+
 
