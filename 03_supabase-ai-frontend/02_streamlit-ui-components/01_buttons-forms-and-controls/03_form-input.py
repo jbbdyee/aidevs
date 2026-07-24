@@ -36,7 +36,7 @@ with st.form("profile_form"):  # 파일, 화면 영역, 로딩 상태처럼 시�
 
     with reset_col:
         reset = st.form_submit_button("초기화", on_click=reset_profile_form)  # 입력값을 기본값으로 되돌리는 버튼입니다.
-
+# -----------------------------------------------------------------------------------------
 if reset:  # 초기화 버튼을 눌렀을 때 실행합니다.
     st.info("입력값을 초기화했습니다.")  # 사용자에게 초기화가 완료되었음을 알려줍니다.
 elif submitted:  # 조건식이 True일 때만 아래 들여쓰기 블록을 실행합니다.
