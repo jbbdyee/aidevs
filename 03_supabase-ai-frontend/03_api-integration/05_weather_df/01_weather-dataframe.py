@@ -74,7 +74,7 @@ if st.button("날씨 데이터 조회"):
         st.write("컬럼 목록:", list(weather_df.columns))
 
         st.subheader("시간별 기온")
-        chart_df = weather_df.set_index("시간")[["기온"]]
+        chart_df = weather_df.set_index("시간")[["기온", "습도"]]
         st.line_chart(chart_df)
 
     except httpx.TimeoutException:
