@@ -1,3 +1,5 @@
+## 해당 Repository는 수업 실습 저장소 입니다.
+
 # AI Development Course
 
 Python 기반 웹 API 개발에서 시작해 Supabase AI 서비스, Streamlit 인터페이스, LLM Agent, Docker 기반 운영, 멀티 에이전트 워크플로우까지 단계적으로 확장하는 AI 개발 과정입니다.
