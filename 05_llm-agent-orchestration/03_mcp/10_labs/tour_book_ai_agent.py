@@ -1,12 +1,12 @@
-"""두 stdio MCP Server와 순차 Tool Calling을 연결하는 Lab입니다.
+"""세 stdio MCP Server와 순차 Tool Calling을 연결하는 Lab입니다.
 
-질문에는 날씨 조회와 호텔 검색이 함께 들어 있지만 ``parallel_tool_calls=False``이므로
-GPT는 한 응답에서 Tool을 최대 하나씩 제안합니다. 특히 취소 규정 조회에 필요한
-``hotel_id``는 호텔 검색 결과에서 얻어야 하므로 Tool 결과를 GPT에 돌려주는 Agent
-Loop가 필요합니다.
+질문에는 날씨 조회, 관광지 조회, 호텔 검색이 함께 들어 있지만
+``parallel_tool_calls=False``이므로 GPT는 한 응답에서 Tool을 최대 하나씩 제안합니다.
+특히 취소 규정 조회에 필요한 ``hotel_id``는 호텔 검색 결과에서 얻어야 하므로 Tool
+결과를 GPT에 돌려주는 Agent Loop가 필요합니다.
 
 전체 흐름
-    1. Client가 Weather MCP Server와 Hotel MCP Server를 각각 자식 프로세스로 실행합니다.
+    1. Client가 설정에 등록된 세 MCP Server를 각각 자식 프로세스로 실행합니다.
     2. 두 Server에서 ``tools/list``를 호출하고 Tool 이름 앞에 Server 이름을 붙입니다.
     3. GPT가 질문과 전체 Tool Schema를 보고 이번 단계에 필요한 Tool 하나를 선택합니다.
     4. 라우팅 테이블로 원래 Server와 Tool 이름을 찾아 ``tools/call``을 실행합니다.
@@ -16,11 +16,13 @@ Loop가 필요합니다.
 예상되는 핵심 호출
     - weather__get_current_weather(city="부산")
     - weather__get_weather_forecast(city="부산", days=1)
+    - tour__get_tourist_attractions(location="부산")
     - hotel__search_hotels(city="부산", max_price=150000)
     - hotel__get_cancellation_policy(hotel_id="hotel-busan-001")
 
-LLM이 독립적인 날씨 Tool과 호텔 Tool의 순서를 정하므로 실제 순서는 달라질 수 있습니다.
-다만 취소 규정 조회는 검색 결과의 hotel_id가 필요하므로 호텔 검색 뒤에 실행됩니다.
+LLM이 독립적인 날씨, 관광지, 호텔 Tool의 순서를 정하므로 실제 순서는 달라질 수
+있습니다. 다만 취소 규정 조회는 검색 결과의 hotel_id가 필요하므로 호텔 검색 뒤에
+실행됩니다.
 """
 
 import asyncio
@@ -45,13 +47,11 @@ load_dotenv(COURSE_ROOT / ".env")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
 MAX_AGENT_ROUNDS = 8
 QUESTION = (
-    "부산의 현재 날씨와 내일 예보를 확인하고, 15만 원 이하 호텔을 찾은 뒤 "
-    "검색된 호텔의 취소 규정을 알려줘."
+    "hotel-seoul-001 에 9월1일부터 3일간 예약 하려고해 인원은 4명이야."
 )
 INSTRUCTIONS = (
-    "당신은 여행 계획 도우미입니다. 질문을 완전히 해결하는 데 필요한 Tool을 "
-    "한 단계씩 사용하세요. 호텔 취소 규정은 반드시 먼저 호텔을 검색하여 얻은 "
-    "hotel_id로 조회하세요. Tool 결과만 근거로 한국어 최종 답변을 작성하세요."
+    "당신은 예약 도우미입니다. 질문을 완전히 해결하는 데 필요한 Tool을 사용합니다."
+    "hotel_id를 사용해야 합니다. Tool 호출은 한 번에 하나씩만 수행할 수 있습니다. "
 )
 
 

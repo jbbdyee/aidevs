@@ -11,10 +11,10 @@
 `travel://policy/refund` Resource를 추가하고 Client에서 읽습니다. 같은 정보를 Tool로
 제공할 때와 Resource로 제공할 때 호출 의도가 어떻게 다른지 설명합니다.
 
-## Lab 03 · 두 MCP Server와 순차 Tool Loop
+## Lab 03 · 여러 MCP Server와 순차 Tool Loop
 
-`03_weather_mcp_server.py`와 `03_hotel_mcp_server.py`를 각각 stdio Server로
-실행하고 `03_multi_server_tool_loop.py`에서 동시에 연결합니다.
+`03_weather_mcp_server.py`, `03_hotel_mcp_server.py`, `tour_mcp_server.py`를 각각
+stdio Server로 실행하고 `03_multi_server_tool_loop.py`에서 동시에 연결합니다.
 
 연결할 Server 목록은 `mcp_servers.json`에서 관리합니다. 새 Server를 추가할 때는
 Client 코드를 수정하지 않고 다음처럼 설정만 추가합니다. `command`를 생략하면 현재
@@ -25,20 +25,21 @@ Python 실행 파일을 사용하며, 상대 경로인 Python 파일은 이 Lab 
 {
   "weather": { "args": ["03_weather_mcp_server.py"] },
   "hotel": { "args": ["03_hotel_mcp_server.py"] },
-  "restaurant": { "args": ["03_restaurant_mcp_server.py"] }
+  "tour": { "args": ["tour_mcp_server.py"] }
 }
 ```
 
 ```text
 질문
-→ 부산의 현재 날씨와 내일 예보를 확인하고, 15만 원 이하 호텔을 찾은 뒤
-  검색된 호텔의 취소 규정을 알려줘.
+→ 부산의 현재 날씨와 내일 예보를 확인하고, 추천 관광지를 알려줘.
+  15만 원 이하 호텔을 찾은 뒤 검색된 호텔의 취소 규정도 알려줘.
 ```
 
 Weather Server는 `get_current_weather`, `get_weather_forecast`를 제공하고 Hotel
-Server는 `search_hotels`, `get_cancellation_policy`를 제공합니다. Client는 두
-Server의 Tool 이름 앞에 `weather__`, `hotel__`을 붙여 GPT에 전달하고, 라우팅
-테이블을 이용해 GPT가 선택한 Tool을 원래 Server에서 실행합니다.
+Server는 `search_hotels`, `get_cancellation_policy`를 제공합니다. Tour Server는
+`get_tourist_attractions`를 제공합니다. Client는 각 Server의 Tool 이름 앞에
+`weather__`, `hotel__`, `tour__`를 붙여 GPT에 전달하고, 라우팅 테이블을 이용해
+GPT가 선택한 Tool을 원래 Server에서 실행합니다.
 
 ```text
 Weather MCP Server ─ get_current_weather
@@ -46,6 +47,8 @@ Weather MCP Server ─ get_current_weather
 
 Hotel MCP Server   ─ search_hotels
                    └ get_cancellation_policy
+
+Tour MCP Server    ─ get_tourist_attractions
 ```
 
 `parallel_tool_calls=False`이므로 GPT는 응답 한 번에 Tool 하나를 선택합니다.
@@ -65,6 +68,7 @@ python .\03_mcp\10_labs\03_multi_server_tool_loop.py
 ```text
 weather__get_current_weather(city="부산")
 weather__get_weather_forecast(city="부산", days=1)
+tour__get_tourist_attractions(location="부산")
 hotel__search_hotels(city="부산", max_price=150000)
 hotel__get_cancellation_policy(hotel_id="hotel-busan-001")
 최종 답변
@@ -75,5 +79,6 @@ hotel__get_cancellation_policy(hotel_id="hotel-busan-001")
 - Client가 Tool 이름을 코드에 등록하지 않아도 `list_tools()`에서 발견합니다.
 - 정상 arguments와 잘못된 arguments의 결과를 모두 확인합니다.
 - 서버는 표준 출력에 디버그 문장을 출력하지 않습니다.
-- Lab 03의 Trace에서 두 Server의 Tool이 올바른 Server로 라우팅됩니다.
+- Lab 03의 Trace에서 세 Server의 Tool이 올바른 Server로 라우팅됩니다.
 - 호텔 취소 규정은 호텔 검색 결과의 `hotel_id`로 조회됩니다.
+- 관광지 정보는 질문에서 요청한 지명의 조회 결과로 작성됩니다.
