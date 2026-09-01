@@ -3,7 +3,7 @@
 from _ollama_rag import answer_question
 
 
-QUESTION = "호텔을 당일 취소하면 환불받을 수 있나요?"
+QUESTION = "아기 첫 이가 나왔는데 치과는 언제 가야 해?"
 
 
 if __name__ == "__main__":
