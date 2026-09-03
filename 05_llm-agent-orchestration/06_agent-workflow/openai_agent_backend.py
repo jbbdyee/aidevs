@@ -41,6 +41,7 @@ search_outdoor_places를 호출하세요. Tool Result에 없는 사실을 만들
 필요한 근거를 모두 얻었으면 추가 Tool 없이 간결한 한국어 최종 답변을 작성하세요.
 최종 답변에는 Tool Result에 있는 날씨 값과 장소 이름만 사용하세요. 장소에 대한
 특징·시설·활동 설명처럼 Tool Result에 없는 사실은 추측하거나 추가하지 마세요.
+단 날씨만 물어봤을때는 날씨만 알려주세요.
 """
 
 OPENAI_TOOLS: list[dict[str, Any]] = [

@@ -177,6 +177,6 @@ def run_openai_agent(question: str, max_steps: int = MAX_STEPS) -> dict[str, Any
 
 
 if __name__ == "__main__":
-    question = " ".join(sys.argv[1:]) or "제주 날씨에 맞는 장소를 추천해 줘."
+    question = " ".join(sys.argv[1:]) or "제주 날씨 알려줘~."
     result = run_openai_agent(question)
     print(json.dumps(result, ensure_ascii=False, indent=2))
