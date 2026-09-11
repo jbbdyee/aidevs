@@ -1,7 +1,8 @@
 # 01 Simple Multi-LLM Docker Compose
 
-하나의 여행 준비 Chat으로 Frontend와 Backend Container 연결을 배웁니다. Multi-Agent와
-Orchestration은 아직 넣지 않습니다. 현재 수업 PC에는 PostgreSQL·Redis·Ollama Container가
+하나의 여행 준비 Chat으로 Frontend와 Backend Container 연결을 배웁니다.   
+Multi-Agent와 Orchestration은 아직 넣지 않습니다.  
+현재 수업 PC에는 PostgreSQL·Redis·Ollama Container가
 이미 있으므로 기본 실행에서는 Application Container 두 개만 생성합니다.
 
 ## 두 실행 방식을 구분하세요

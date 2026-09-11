@@ -31,6 +31,11 @@
       "path": "05_llm-agent-orchestration/06_agent-workflow",
       "envManager": "ms-python.python:venv",
       "packageManager": "ms-python.python:pip"
+    },
+    {
+      "path": "07_multi-agent-service-ops",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
     }
   ]
 }
