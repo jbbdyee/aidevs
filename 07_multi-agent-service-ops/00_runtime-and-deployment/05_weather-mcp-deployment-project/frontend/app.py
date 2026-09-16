@@ -4,6 +4,8 @@
 아니라 실제 호출한 MCP Tool 이름과 Open-Meteo 결과를 함께 보여 주어 근거를 확인합니다.
 """
 
+
+
 import os
 import requests
 import streamlit as st
