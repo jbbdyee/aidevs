@@ -60,7 +60,7 @@ docker compose up -d --build --force-recreate backend frontend
 docker compose -f .\compose.full-stack.yml up -d --build --force-recreate backend frontend
 ```
 
-공용 PostgreSQL은 이 폴더의 `database/init.sql`을 자동 실행하지 않으므로 최초 한 번
+공용 PostgreSQL은 이 폴더의 `backend/database/init.sql`을 자동 실행하지 않으므로 최초 한 번
 전용 Schema와 Table을 준비합니다.
 
 ```powershell
@@ -99,7 +99,7 @@ Backend → database:5432
 Backend → 선택 Ollama: ollama:11434
 ```
 
-Full Stack 방식은 새 PostgreSQL Volume을 만들 때 `database/init.sql`을 자동 실행하므로
+Full Stack 방식은 새 PostgreSQL Volume을 만들 때 `backend/database/init.sql`을 자동 실행하므로
 별도로 `init_database.py`를 실행하지 않습니다.
 
 ## 3. 실제 LLM 설정

@@ -2,7 +2,7 @@
 [Database 초기화 시나리오]
 기본 compose.yml은 이미 실행 중인 공용 PostgreSQL을 사용하므로 PostgreSQL Container의
 `docker-entrypoint-initdb.d`가 실행되지 않습니다. 그 결과 Backend가 사용하는 Table이
-없을 수 있습니다. 이 프로그램은 `database/init.sql`을 공용 PostgreSQL에 직접 실행하여
+없을 수 있습니다. 이 프로그램은 `backend/database/init.sql`을 공용 PostgreSQL에 직접 실행하여
 `simple_multi_llm` 전용 Schema와 Table을 준비합니다.
 
 기존 Schema나 데이터를 삭제하지 않으며 `CREATE ... IF NOT EXISTS`만 실행합니다.
@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 
 ROOT = Path(__file__).resolve().parent
 ENV_PATH = ROOT / ".env"
-SQL_PATH = ROOT / "database" / "init.sql"
+SQL_PATH = ROOT / "backend" / "database" / "init.sql"
 DEFAULT_HOST_DATABASE_URL = (
     "postgresql://agent_user:agent_pwd@127.0.0.1:5433/agent_db"
 )
