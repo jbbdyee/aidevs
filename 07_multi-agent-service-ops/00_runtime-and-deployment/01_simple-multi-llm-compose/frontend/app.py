@@ -15,6 +15,7 @@ def api(method: str, path: str, payload: dict | None = None) -> dict:
     return response.json()
 
 
+
 def show_error(error: Exception) -> None:
     if isinstance(error, httpx.HTTPStatusError):
         try:
