@@ -8,7 +8,7 @@ on:
     paths:
       - "07_multi-agent-service-ops/00_runtime-and-deployment/**"
       - ".github/workflows/07-runtime-ci.yml"
-  Pull Request를 만들거나 갱신할 때도 같은 검사를 다시 실행합니다.
+  # Pull Request를 만들거나 갱신할 때도 같은 검사를 다시 실행합니다.
   pull_request:
     paths:
       - "07_multi-agent-service-ops/00_runtime-and-deployment/**"
