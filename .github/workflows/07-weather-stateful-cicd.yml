@@ -2,6 +2,8 @@ name: 07 Stateful Weather CI CD
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "07_multi-agent-service-ops/00_runtime-and-deployment/06_weather-mcp-stateful-deployment/backend/**"
       - "07_multi-agent-service-ops/00_runtime-and-deployment/06_weather-mcp-stateful-deployment/frontend/**"
@@ -62,7 +64,7 @@ jobs:
       (github.event_name == 'workflow_dispatch' && inputs.deploy)
     needs: test-and-build
     runs-on: ubuntu-latest
-    environment: production
+    environment: wk01
     steps:
       - uses: actions/checkout@v4
       - name: Configure verified SSH identity
