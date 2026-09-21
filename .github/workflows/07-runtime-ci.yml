@@ -54,3 +54,4 @@ jobs:
       # Dockerfile로 Backend·Frontend Image를 만들 수 있는지 확인합니다. Image를 Registry에 Push하지는 않습니다.
       - name: Build images
         run: docker compose build
+
