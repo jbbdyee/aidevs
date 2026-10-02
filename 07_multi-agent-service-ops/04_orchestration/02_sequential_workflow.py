@@ -12,6 +12,8 @@
     Skip합니다. 정상 흐름에서는 실제 LLM을 최대 3회 호출합니다.
 """
 
+from httpcore2 import request
+
 from shared.travel_llm import run_learning_agent
 
 
@@ -26,13 +28,28 @@ def sequential_orchestrator_agent(request: str) -> dict[str, object]:
     context: object | None = None
     results: dict[str, object] = {}
     trace: list[dict[str, object]] = []
+
+    print("시작 요청:", request)
+    print("-------------------------")
+
     for agent_id, goal in STEPS:
+        print("실행 Agent:-------------------------", agent_id)
+
+
         response = run_learning_agent(agent_id, goal, request, context)
         trace.append({"actor": agent_id, "provider": response["provider_requested"], "model": response["model"], "error": response["error"]})
         if response["error"]:
             return {"status": "failed", "reason": f"{agent_id}_failed", "results": results, "trace": trace}
         results[agent_id] = response["result"]
-        context = response["result"]
+        # context = response["result"]
+        context = [response["result"]] if context is None else context + [response["result"]]
+
+    print("Agent 결과:-------------------------", response["result"])
+    print("Context 결과:-------------------------", context)
+
+    print("시작 완료:", request)
+    print("-------------------------")
+
     return {"status": "completed", "reason": "all_steps_completed", "results": results, "trace": trace}
 
 

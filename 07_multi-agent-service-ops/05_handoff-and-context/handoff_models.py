@@ -2,7 +2,7 @@
 
 from typing import Literal
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 HandoffStatus = Literal[
@@ -39,18 +39,37 @@ class HandoffState(BaseModel):
     events: list[dict[str, object]] = Field(default_factory=list)
 
 
+class WeatherHandoffContext(BaseModel):
+    """Weather Agent가 전달할 수 있는 필드만 허용합니다."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    destination: str | None = None
+    days: int | None = None
+    weather_summary: str | None = None
+    weather_cautions: list[str] | None = None
+
+
 class WeatherHandoffDecision(BaseModel):
     agent_id: Literal["weather_agent"] = "weather_agent"
     handoff_required: bool
     target_agent: Literal["itinerary_agent"] | None = None
     reason: str
     responsibility: str | None = None
-    handoff_context: dict[str, object] = Field(default_factory=dict)
+    handoff_context: WeatherHandoffContext = Field(default_factory=WeatherHandoffContext)
 
     @model_validator(mode="after")
     def fields_must_match_decision(self) -> "WeatherHandoffDecision":
         if self.handoff_required and (self.target_agent is None or not self.responsibility):
             raise ValueError("Handoff에는 대상과 책임이 필요합니다.")
-        if not self.handoff_required and (self.target_agent or self.handoff_context):
+        context = self.handoff_context
+        if self.handoff_required and (
+            not context.destination or not context.days or not context.weather_summary
+        ):
+            raise ValueError("Handoff에는 destination, days, weather_summary가 필요합니다.")
+        if not self.handoff_required and (
+            self.target_agent or any(value is not None for value in context.model_dump().values())
+        ):
             raise ValueError("Handoff가 없으면 대상과 Context가 비어 있어야 합니다.")
         return self
+    
