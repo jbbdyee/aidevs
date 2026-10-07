@@ -42,7 +42,7 @@ def criteria_evaluator_agent(draft: str) -> dict[str, object]:
     return {"passed": not failed, "checks": checks, "failed_criteria": failed}
 
 
-travel_draft = "부산 2박 3일 대중교통 일정이며 예상 예산은 600000원입니다."
+travel_draft = "부산 2박 3일 대중교통 일정이며 알레르기 음식을 피한다, 예상 예산은 600000원입니다."
 evaluation = criteria_evaluator_agent(travel_draft)
 
 print("평가 대상:", travel_draft)
